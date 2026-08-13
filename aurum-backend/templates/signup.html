@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}Create Patient Account — AURUM Dental Studio{% endblock %}
+{% set active = 'signup' %}
+{% block content %}
+
+<section style="padding-top:64px;padding-bottom:100px;">
+  <div class="container">
+    <div style="max-width:620px;margin:0 auto;">
+
+      <div class="eyebrow" style="justify-content:center;">patient portal</div>
+      <h1 style="text-align:center;font-size:clamp(28px,4.2vw,42px);">Create your account</h1>
+      <p class="lede" style="text-align:center;margin:12px auto 8px;">
+        Book instantly, message your dentist, and keep every visit on record — protected by a password
+        we help you get right, end to end.
+      </p>
+      <svg class="smile-line divider" viewBox="0 0 160 50" style="margin:14px auto 34px;"><path d="M8,10 C 30,44 130,44 152,10" /></svg>
+
+      <div class="alert-error" id="signupError"></div>
+
+      <form id="signupForm">
+        <div class="panel reveal" style="margin-bottom:16px;">
+          <div class="field-row">
+            <div class="field" style="margin-bottom:0;">
+              <label for="patientName">Full name</label>
+              <input type="text" id="patientName" required placeholder="Your name">
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label for="patientEmail">Email</label>
+              <input type="email" id="patientEmail" required placeholder="you@email.com">
+            </div>
+          </div>
+        </div>
+
+        <div class="panel reveal" style="margin-bottom:16px;">
+          <label for="pwInput" style="display:block;font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:10px;">Set your password</label>
+          <div style="display:flex;gap:10px;">
+            <input type="password" id="pwInput" required autocomplete="off" spellcheck="false"
+              placeholder="Type a password..."
+              style="flex:1;background:var(--bg-soft);border:1px solid var(--panel-line);border-radius:8px;color:var(--ink);font-family:var(--mono);font-size:16px;padding:12px 14px;outline:none;">
+            <button type="button" class="btn secondary" id="toggleVis">Show</button>
+          </div>
+          <p class="form-note" style="margin-top:10px;">Every calculation below — strength, hashing, breach lookup —
+            runs in Python on the AURUM server, not in your browser.</p>
+        </div>
+
+        <div class="toolkit-panel reveal">
+          <h4><span class="n">01</span> Password Strength</h4>
+          <div class="meter-track"><div class="meter-fill" id="meterFill"></div></div>
+          <div class="meter-label">
+            <span>Strength: <span class="score-word" id="scoreWord">—</span></span>
+            <span id="scoreNum">0/4</span>
+          </div>
+          <div class="crack-time" id="crackTime">Estimated crack time: —</div>
+        </div>
+
+        <div class="toolkit-panel reveal">
+          <h4><span class="n">02</span> Why Is This Weak?</h4>
+          <div id="explainBox"><p class="empty">Start typing a password above to see the analysis.</p></div>
+        </div>
+
+        <div class="toolkit-panel reveal">
+          <h4><span class="n">—</span> Requirements Checklist</h4>
+          <div class="policy-grid" id="policyGrid"></div>
+        </div>
+
+        <div class="toolkit-panel reveal" style="padding-bottom:16px;">
+          <div class="toolkit-toggle" id="advToggle" role="button" tabindex="0" aria-expanded="false">
+            <h4 style="margin:0;"><span class="n">+</span> Advanced Security Details</h4>
+            <span class="arrow">›</span>
+          </div>
+          <div class="toolkit-advanced" id="advBody">
+            <div style="height:16px"></div>
+
+            <h4><span class="n">03</span> Breached Password Check</h4>
+            <button type="button" class="btn secondary" id="checkBreach">Check for Breach</button>
+            <div style="height:10px"></div>
+            <div class="hibp-result hibp-idle" id="hibpResult">Click the button to check whether this password has appeared in known breaches. Only the first 5 characters of its hash are sent (k-anonymity) — the check itself runs on the AURUM server, in Python.</div>
+
+            <div style="height:22px"></div>
+            <h4><span class="n">04</span> Need a Strong Password Instead?</h4>
+            <div class="gen-row">
+              <label class="muted">Length: <b id="lenVal">16</b></label>
+              <input type="range" id="lenSlider" min="8" max="32" value="16">
+            </div>
+            <div class="gen-opts">
+              <label><input type="checkbox" id="optUpper" checked> Uppercase (A-Z)</label>
+              <label><input type="checkbox" id="optLower" checked> Lowercase (a-z)</label>
+              <label><input type="checkbox" id="optNum" checked> Numbers (0-9)</label>
+              <label><input type="checkbox" id="optSym" checked> Symbols (!@#$...)</label>
+            </div>
+            <div style="height:10px"></div>
+            <div id="genOutput">
+              <span id="genText" class="muted">Click "Generate" to create a strong password</span>
+              <div style="display:flex;gap:8px;">
+                <button type="button" class="btn secondary" id="copyGen">Copy</button>
+                <button type="button" class="btn secondary" id="useGen">Use this</button>
+                <button type="button" class="btn" id="genBtn">Generate</button>
+              </div>
+            </div>
+
+            <div style="height:22px"></div>
+            <h4><span class="n">05</span> How Your Password Gets Stored</h4>
+            <div id="hashBox"><p class="empty">The same password will be shown here using several hashing algorithms.</p></div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn block" id="submitBtn" disabled style="margin-top:6px;">Create Account</button>
+        <p class="form-note" style="text-align:center;margin-top:12px;">Already have an account? <a href="{{ url_for('login_page') }}" style="color:var(--gold);">Log in</a></p>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='toolkit.js') }}"></script>
+{% endblock %}

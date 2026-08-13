@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — AURUM Dental Studio{% endblock %}
+{% set active = 'dashboard' %}
+{% block content %}
+
+<section style="padding-top:70px;">
+  <div class="container">
+    <div class="eyebrow">patient dashboard</div>
+    <h1 style="font-size:clamp(28px,4vw,42px);">Welcome, {{ current_user.name }}</h1>
+    <p class="lede">Signed in as {{ current_user.email }} · patient since {{ current_user.created_at[:10] }}</p>
+    <svg class="smile-line divider" viewBox="0 0 160 50"><path d="M8,10 C 30,44 130,44 152,10" /></svg>
+
+    <div class="panel reveal" style="margin-top:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px;">
+        <h3 style="margin:0;">Your appointments</h3>
+        <a href="{{ url_for('booking_page') }}" class="btn secondary">+ New Request</a>
+      </div>
+
+      {% if bookings %}
+      <table class="bookings">
+        <thead>
+          <tr><th>Date</th><th>Time</th><th>Treatment</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          {% for b in bookings %}
+          <tr>
+            <td>{{ b.appt_date }}</td>
+            <td>{{ b.appt_time }}</td>
+            <td>{{ b.service }}</td>
+            <td><span class="status-pill">{{ b.status }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="empty">No appointment requests yet — book your first visit above.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Services — AURUM Dental Studio{% endblock %}
+{% set active = 'services' %}
+{% block content %}
+
+<section style="padding-top:70px;padding-bottom:40px;">
+  <div class="container">
+    <div class="eyebrow">treatments</div>
+    <h1 style="font-size:clamp(30px,4.4vw,48px);">Care for every stage of your smile</h1>
+    <svg class="smile-line divider" viewBox="0 0 160 50"><path d="M8,10 C 30,44 130,44 152,10" /></svg>
+    <p class="lede">Every plan starts with a full digital scan and a conversation — never a quote before an exam.</p>
+  </div>
+</section>
+
+<section style="padding-top:10px;">
+  <div class="container">
+    <div class="grid cols-3">
+
+      <div class="card reveal">
+        <svg class="icon" viewBox="0 0 34 34" fill="none"><path d="M17 6c-4 0-7 2.4-7 7 0 6.3 3 14.3 4.9 17.8.6 1.1 2.6 1.1 3.2 0C20 27.3 24 19.3 24 13c0-4.6-3-7-7-7z" stroke-width="1.4"/></svg>
+        <h3>Implants &amp; Restoration</h3>
+        <p>Single-tooth, multi-unit and full-arch implants, planned on 3D imaging before any surgery date is set.
+          Includes crowns, bridges and same-day temporaries.</p>
+      </div>
+
+      <div class="card reveal">
+        <svg class="icon" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="10" stroke-width="1.4"/><path d="M12 17l3.5 3.5L23 13" stroke-width="1.4"/></svg>
+        <h3>Cosmetic &amp; Whitening</h3>
+        <p>Porcelain veneers, composite bonding, and in-chair whitening matched to your natural enamel shade
+          rather than a flat, uniform white.</p>
+      </div>
+
+      <div class="card reveal">
+        <svg class="icon" viewBox="0 0 34 34" fill="none"><path d="M8 22c0-8 4-14 9-14s9 6 9 14" stroke-width="1.4"/><path d="M8 22h18" stroke-width="1.4"/></svg>
+        <h3>Orthodontics</h3>
+        <p>Clear aligners and fixed braces for teens and adults, with progress mapped in 3D at every check-in
+          so you can see the plan, not just feel it.</p>
+      </div>
+
+      <div class="card reveal">
+        <svg class="icon" viewBox="0 0 34 34" fill="none"><path d="M17 6a6 6 0 0 1 6 6c0 4-2 6-2 10a4 4 0 0 1-8 0c0-4-2-6-2-10a6 6 0 0 1 6-6z" stroke-width="1.4"/></svg>
+        <h3>Root Canal &amp; Endodontics</h3>
+        <p>Microscope-guided root canal therapy focused on saving the natural tooth wherever it's viable,
+          done in a single extended visit where possible.</p>
+      </div>
+
+      <div class="card reveal">
+        <svg class="icon" viewBox="0 0 34 34" fill="none"><path d="M9 25c3-10 3-16 8-16s5 6 8 16" stroke-width="1.4"/><circle cx="17" cy="10" r="2.5" stroke-width="1.4"/></svg>
+        <h3>Pediatric Dentistry</h3>
+        <p>A dedicated, unhurried approach for younger patients — sealants, early orthodontic screening,
+          and first-visit programs designed to build comfort, not fear.</p>
+      </div>
+
+      <div class="card reveal">
+        <svg class="icon" viewBox="0 0 34 34" fill="none"><path d="M17 5v10M17 25v4M8 17h6M20 17h6" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <h3>Emergency Care</h3>
+        <p>Same-day appointments for pain, trauma or a broken restoration. Message your dentist directly
+          through the patient portal to flag urgency.</p>
+      </div>
+
+    </div>
+
+    <div class="panel reveal" style="margin-top:48px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;">
+      <div>
+        <h3>Not sure which treatment fits?</h3>
+        <p class="lede" style="font-size:14.5px;margin-top:6px;">Book a consultation and we'll build the plan together.</p>
+      </div>
+      <a href="{{ url_for('booking_page') }}" class="btn">Book a Consultation</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Log In — AURUM Dental Studio{% endblock %}
+{% set active = 'login' %}
+{% block content %}
+
+<section style="padding-top:80px;padding-bottom:120px;">
+  <div class="container">
+    <div style="max-width:420px;margin:0 auto;">
+      <div class="eyebrow" style="justify-content:center;">patient portal</div>
+      <h1 style="text-align:center;font-size:clamp(28px,4.2vw,38px);">Welcome back</h1>
+      <svg class="smile-line divider" viewBox="0 0 160 50" style="margin:14px auto 30px;"><path d="M8,10 C 30,44 130,44 152,10" /></svg>
+
+      <div class="panel reveal">
+        <div class="alert-error" id="loginError"></div>
+        <form id="loginForm">
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" required placeholder="you@email.com">
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" required placeholder="••••••••">
+          </div>
+          <button type="submit" class="btn block" id="loginSubmit">Log In</button>
+          <p class="form-note" style="text-align:center;margin-top:12px;">New here? <a href="{{ url_for('signup_page') }}" style="color:var(--gold);">Create a patient account</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block scripts %}
+<script>
+const form = document.getElementById('loginForm');
+const errBox = document.getElementById('loginError');
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  errBox.classList.remove('show');
+  const payload = { email: document.getElementById('email').value, password: document.getElementById('password').value };
+  const btn = document.getElementById('loginSubmit');
+  btn.disabled = true; btn.textContent = 'Logging in...';
+  try{
+    const res = await fetch('/api/login', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok){
+      errBox.textContent = data.error || 'Something went wrong.';
+      errBox.classList.add('show');
+      btn.disabled = false; btn.textContent = 'Log In';
+      return;
+    }
+    window.location.href = data.redirect;
+  }catch(err){
+    errBox.textContent = 'Could not reach the server. Is app.py running?';
+    errBox.classList.add('show');
+    btn.disabled = false; btn.textContent = 'Log In';
+  }
+});
+</script>
+{% endblock %}
